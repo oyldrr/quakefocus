@@ -1,0 +1,124 @@
+/* Main footer styling */
+.footer {
+    background: #fff;
+    display: block;
+    min-height: fit-content;
+    width: 100%;
+}
+/* */   
+
+/* Wave svg styling*/
+#wave-svg {
+    margin-bottom: -.05rem;
+}
+/* */
+
+/* Footer Logo Styling */
+.logo {
+    width: 7.5rem;
+    filter: drop-shadow(0px 0px 4px #209cff);
+    transition: .3s all;
+}
+
+.logo:hover {
+    filter: drop-shadow(01px 0px 10px #209cff);
+}
+
+/* */
+
+/* Heading of links */
+h6 {
+    color: #209cff;
+}
+
+/* */
+
+/* Social Media links and icons */
+.social-media-icon {
+    color: #209cff;
+}
+
+.text-links {
+    color: #209cff;
+    text-decoration: none;
+    padding-left: .5em;
+}
+
+li .text-links {
+    transition: 1s all;
+}
+
+li a:hover {
+    margin-left: .75rem;
+    color: #0061b0;
+}
+
+/* */
+
+
+/* Newsletter Input Placeholder */
+
+.form-group {
+    border: 2px solid #209cff;
+    border-radius: 5px;
+}
+
+.form-control.shadow-0::placeholder {
+    font-size: 0.95rem;
+    color: #209cff;
+    font-style: italic;
+}
+
+.form-control.shadow-0:focus {
+    box-shadow: none;
+    color: #209cff;
+}
+/* */
+
+
+/* Newsletter Subscribe Button */
+#button-addon1 {
+    color: #209cff;
+    transition: .3s all;
+}
+
+#button-addon1:hover {
+    color: #0061b0;
+}
+
+/* */
+
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+
+    body {
+        position: relative;
+        bottom: 4.5rem;
+    }
+
+    .row {
+        text-align: center;
+    }
+
+    .logo {
+        margin: auto;
+    }
+
+    .copyright {
+        width: 100%;
+        padding-bottom: 3rem;
+    }
+
+    .form-control::placeholder {
+        font-size: .6rem;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .row {
+        text-align: center;
+    }
+}
+
+/* */

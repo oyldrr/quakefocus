@@ -1,0 +1,235 @@
+/* Headers's styling happens here */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 100vh;
+  transition: 0.5s;
+  background-color: none;
+  margin-top: -30px;
+}
+
+/* Desktop Header Navbar Styling */
+.desktop {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #f5f5f5;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.desktop ul {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: auto;
+  width: 90%;
+  list-style-type: none;
+}
+
+.desktop ul li {
+  text-align: center;
+  margin-left: 3rem;
+  margin-right: 3rem;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.desktop ul li a {
+  text-decoration: none;
+  color: #209cff;
+  transition: .3s all;
+
+}
+
+.desktop ul li a:hover {
+  letter-spacing: .1em;
+}
+
+.active {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+/* */ 
+
+
+/* Mobile Bottom Navbar Styling */ 
+.mobile {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  border-radius: 40px 40px 0px 0px;
+  background-color: #f5f5f5;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.mobile ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.mobile ul li {
+  position: relative;
+  top: 25;
+  list-style: none;
+  width: fit-content;
+  margin: auto;
+  height: 70px;
+  z-index: 1;
+}
+.mobile ul li a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  color: #333;
+  font-weight: 500;
+}
+.mobile ul li a .icon {
+  position: relative;
+  display: block;
+  line-height: 75px;
+  text-align: center;
+  transition: 0.5s;
+}
+.mobile ul li.active a .icon {
+  color: #fff;
+}
+.mobile ul li a .icon i {
+  font-size: 20px;
+}
+.mobile ul li a .title {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translate(-50%, 15%);
+  width: auto;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 7px;
+  transition: 0.5s;
+  opacity: 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+}
+.mobile ul li:hover a .title {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 50%);
+}
+.mobile ul li a .title::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  bottom: -8px;
+  left: 48%;
+  transform: rotate(45deg) translateX(-50%);
+  border-radius: 2px;
+}
+.mobile ul .indicator {
+  position: absolute;
+  left: 0;
+  width: 66%;
+  height: 70px;
+  transition: all 0.5s;
+}
+.mobile ul .indicator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 25% 25% 25% 25%;
+  transition: 0.5s;
+}
+.mobile ul li:nth-child(1).active ~ .indicator {
+  transform: translateX(calc(-34.5%));
+}
+.mobile ul li:nth-child(2).active ~ .indicator {
+  transform: translateX(calc(-4%));
+}
+.mobile ul li:nth-child(3).active ~ .indicator {
+  transform: translateX(calc(26.3%));
+}
+.mobile ul li:nth-child(4).active ~ .indicator {
+  transform: translateX(calc(56.5%));
+}
+.mobile ul li:nth-child(5).active ~ .indicator {
+  transform: translateX(calc(86.5%));
+}
+
+.mobile ul li:nth-child(1).active ~ .indicator::before {
+  background-color: #209cffea;
+}
+.mobile ul li:nth-child(2).active ~ .indicator::before {
+  background-color: #209cffc7;
+}
+.mobile ul li:nth-child(3).active ~ .indicator::before {
+  background-color: #209cff;
+}
+.mobile ul li:nth-child(4).active ~ .indicator::before {
+  background-color: #209cffc7;
+}
+.mobile ul li:nth-child(5).active ~ .indicator::before {
+  background-color: #209cffea;
+}
+/* */
+
+
+
+/* Media Queries */
+@media only screen and (max-width: 1024px) {
+  .desktop ul li a{
+    font-size: .9em;
+  }
+  .active {
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .mobile {
+    display: flex;
+  }
+
+  .desktop {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .mobile{
+    display: none;
+  }
+
+  .desktop {
+    display: flex;
+  }
+}
+/* */
