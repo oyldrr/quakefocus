@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             exit();
                         } else {
                             // Password is not valid, display a generic error message
-                            $login_err = "Password are not correct.";
+                            $login_err = "Password is not correct.";
                         }
                     }
                 } else {
@@ -115,18 +115,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="" method="POST" class="w-25 mx-auto text-light">
 
             <div class="d-flex mt-5">
-                <img class="mx-auto pb-5" src="img/logo.png" alt="logo" width="150">
+                <img class="mx-auto pb-3" src="img/logo.png" alt="logo" width="150">
             </div>
+
+            <?php
+            echo " <p class='text-danger text-center'>" . "$login_err" . "</p>";
+            ?>
 
 
             <!-- Email input -->
             <div class="form-outline mb-4">
                 <input name="username" type="email" id="formUsername" class="form-control" placeholder="Username" />
+                <?php
+                echo "
+                    <p class='text-danger'>" . "$username_err" . "</p> 
+                    ";
+                ?>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
                 <input name="password" type="password" id="formPassword" class="form-control" placeholder="Password" />
+                <?php 
+                echo "
+                <p class='text-danger'>" . "$password_err" . "</p> ";
+                ?>
             </div>
 
             <!-- 2 column grid layout for inline styling -->

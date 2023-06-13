@@ -33,18 +33,19 @@ include_once "header.php";
             <div class="counter text-center" data>
                 <h2 data-aos='fade-in' data-aos-delay='100'>Be focus & start working!</h2>
                 <section data-aos='fade-in' data-aos-delay='300'>
-                    <span>
+                    <span id="hours">
                         00
                     </span>
                     <span class="dots">: </span>
-                    <span>
+                    <span id="minutes">
                         00
                     </span>
                     <span class="dots">: </span>
-                    <span>
+                    <span id="seconds">
                         00
                     </span>
                 </section>
+
 
                 <?php
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -61,13 +62,56 @@ include_once "header.php";
                     </button>";
                 }
                 ?>
+
+                <h1 class="message text-light mt-5"></h1>
+
+
+                <!-- Options -->
+                <div class="text-light" id="pomodoroOptions">
+                    <h3>Select a help option</h3>
+                    <div class="options">
+                        <button id="optionWater">
+                            <img src="img/drop.png" alt="water" width="50px">
+                        </button>
+                        <p><b>Water</b></p>
+                        <p class="option-description">We are going to donate a organisation which is supplying water if you success <strong>15min</strong> pomodoro.</p>
+                    </div>
+
+
+                    <div class="options">
+                        <button id="optionFood">
+                            <img src="img/groceries.png" alt="food" width="50px">
+                        </button>
+                        <p><b>Food</b></p>
+                        <p class="option-description">We are going to donate a organisation which is supplying food if you success <strong>30min</strong> pomodoro.</p>
+                    </div>
+
+                    <div class="options">
+                        <button id="optionEducation">
+                            <img src="img/education.png" alt="education" width="50px">
+                        </button>
+                        <p><b>Education</b></p>
+                        <p class="option-description">We are going to donate a organisation which is trying to make child go school if you success <strong>1 hour</strong> pomodoro.</p>
+                    </div>
+
+                    <div class="options">
+                        <button id="optionShelter">
+                            <img src="img/house.png" alt="shelter" width="50px">
+                        </button>
+                        <p><b>Shelter</b></p>
+                        <p class="option-description">We are going to donate a organisation which is giving away houses for victims if you success <strong>3 hour</strong> pomodoro.</p>
+                    </div>
+
+                </div>
             </div>
         </section>
         <!-- End -->
-        
+
     </div>
-    
+
     <?php include_once "footer.php"; ?>
+
 </body>
+<script src="js/script.js"></script>
 
 </html>

@@ -64,7 +64,7 @@
                         </li>
                         <li class="mb-2" data-aos="fade-right" data-aos-delay="400">
                             <i class="social-media-icon bi-discord"></i>
-                            <a href="https://discord.gg/MEMpmfNN" target="_blank" class="text-links">
+                            <a href="https://discord.gg/YPQJxPpmZb" target="_blank" class="text-links">
                                 Discord
                             </a>
                         </li>

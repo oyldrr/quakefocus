@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 						// Set parameters
 						$param_email = $email;
-						$param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+						$param_password = password_hash($pwd, PASSWORD_DEFAULT); // Creates a password hash
 						$param_fullname = $fullname;
 						$param_birthday = $birthday;
 						$param_country = $country;
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						// Attempt to execute the prepared statement
 						if (mysqli_stmt_execute($stmt)) {
 							// Redirect to login page
-							header("location:login.php");
+							header('location: login.php');
 							exit();
 						} else {
 							echo "Oops! Something went wrong. Please try again later.";
@@ -80,10 +80,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						// Close statement
 						mysqli_stmt_close($stmt);
 					} else {
-						header("location: signup.php?mysqliproblem");
+						header('location: signup.php?mysqliproblem');
 					}
 				} else {
-					header("location: signup.php?passwords-arent-same");
+					header('location: signup.php?passwords-arent-same');
 				}
 			}
 		}
@@ -113,16 +113,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 	<div class="content pt-5 text-light">
+		<div class="d-flex">
+			<img class="mx-auto" src="img/logo.png" alt="logo" width="200">
+		</div>
 		<form id="regForm" action="" method="POST">
 			<h1>Sign up:</h1>
+			<p  class="my-1 text-center text-danger" id="errors"></p>
 			<!-- One "tab" for each step in the form: -->
 			<div class="tab">Personal Info:
 				<p><input required placeholder="Full name..." oninput="this.className = ''" name="signup-name" type="text"></p>
-				<p><input required placeholder="E-mail..." oninput="this.className = ''" name="signup-mail" type="mail"></p>
+				<p><input required placeholder="E-mail..." oninput="this.className = ''" name="signup-mail" id="mail" type="email"></p>
 			</div>
 			<div class="tab">Password:
-				<p><input required placeholder="Password..." oninput="this.className = ''" name="signup-password" type="password"></p>
-				<p><input required placeholder="Confirm password..." oninput="this.className = ''" name="signup-cpassword" type="password"></p>
+				<p><input required placeholder="Password..." oninput="this.className = ''" name="signup-password" id="password" type="password"></p>
+				<p><input required placeholder="Confirm password..." oninput="this.className = ''" name="signup-cpassword" id="cpassword" type="password"></p>
 			</div>
 			<div class="tab">Birthday: (Optional)
 				<p><input placeholder="dd.mm.yyyy" oninput="this.className = ''" name="signup-birthday" type="date"></p>
@@ -155,11 +159,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<?php include_once "footer.php"; ?>
 
 		<script>
+			const errors = document.getElementById("errors");
+
 			/* Sign up Page */
 			let currentTab = 0; // Current tab is set to be the first tab (0)
 			showTab(currentTab); // Display the crurrent tab
 
 			function showTab(n) {
+				errors.innerText = "";
 				// This function will display the specified tab of the form...
 				const x = document.getElementsByClassName("tab");
 				x[n].style.display = "block";
@@ -210,13 +217,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				// A loop that checks every input field in the current tab:
 				for (i = 0; i < y.length; i++) {
 					// If a field is empty...
-					if (y[i].value === "" && y[i].required == "true") {
+					if (y[i].value === "" && y[i].required == true) {
 						// add an "invalid" class to the field:
 						y[i].className += " invalid";
 						// and set the current valid status to false
 						valid = false;
 					}
 				}
+
+				// Checking the mail is correct...
+				var email = document.getElementById("mail");
+				if (email.value && email.value.includes('@') && email.value.includes('.')){
+					valid = true;
+					errors.innerText = "";
+				}
+				else {
+					valid = false;
+					errors.innerText = "Please be sure email is correct!";
+				}
+				//
+
+				// Checking the passwords are the same or not...
+				if(document.getElementById("password").value != document.getElementById("cpassword").value) {
+					valid = false;
+					errors.innerText = "Passwords are diffrent!";
+				}
+				//
+
 				// If the valid status is true, mark the step as finished and valid:
 				if (valid) {
 					document.getElementsByClassName("step")[currentTab].className += " finish";

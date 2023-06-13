@@ -87,6 +87,47 @@ body {
     color: #68e0cf;
 }
 
+#pomodoroOptions {
+    display: none;
+    width: 75%;
+
+    margin-top: 3rem;
+    margin-right: auto;
+    margin-left: auto;
+
+    opacity: 0;
+
+    transition: 1s all ease-in-out;
+}
+
+.options {
+    display: block;
+    width: 25%;
+    float: left;
+    margin-top: 1rem;
+}
+
+.options button {
+    all: unset;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #68e0cf;
+    border-radius: 15px;
+    float: bottom;
+    margin-bottom: .5rem;
+}
+
+.options button img {
+    display: flex;
+    float: bottom;
+}
+
+.option-description {
+    text-align: center;
+}
+
+
+
 @keyframes animateGlow {
     from {
         box-shadow: 1px 1px 10px 3px #68e0cf;

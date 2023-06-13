@@ -1,3 +1,7 @@
+<?php
+ob_start();
+session_start();
+?>
 <html lang="en">
 
 <head>
@@ -102,20 +106,39 @@
 
       <!-- PROFILE BUTTON -->
       <?php
-      if ($_SERVER['PHP_SELF'] == "/quakefocus/profile.php") {
-        echo "<li class='list active' data-aos='fade-down' data-aos-delay='300'>
-                    <a href='profile.php'>
-                      <span class='icon'><i class='far fa-user'></i></span>
+      if (isset($_SESSION["loggedin"]) === true) {
+        if ($_SERVER['PHP_SELF'] == "/quakefocus/profile.php") {
+          echo "<li class='list active' data-aos='fade-down' data-aos-delay='300'>
+                      <a href='profile.php'>
+                        <span class='icon'><i class='far fa-user'></i></span>
+                        <span class='title'>Profile</span>
+                      </a>
+                    </li>";
+        } else {
+          echo "<li class='list' data-aos='fade-down' data-aos-delay='300'>
+                    <a href='profile.php' >
+                      <span class='icon'><i class='fas fa-user'></i></span>
                       <span class='title'>Profile</span>
                     </a>
                   </li>";
-      } else {
-        echo "<li class='list' data-aos='fade-down' data-aos-delay='300'>
-                  <a href='profile.php' >
-                    <span class='icon'><i class='fas fa-user'></i></span>
-                    <span class='title'>Profile</span>
-                  </a>
-                </li>";
+        }
+      }
+      else {
+        if ($_SERVER['PHP_SELF'] == "/quakefocus/profile.php") {
+          echo "<li class='list active' data-aos='fade-down' data-aos-delay='300'>
+                      <a href='profile.php'>
+                        <span class='icon'><i class='far fa-user'></i></span>
+                        <span class='title'>Login</span>
+                      </a>
+                    </li>";
+        } else {
+          echo "<li class='list' data-aos='fade-down' data-aos-delay='300'>
+                    <a href='profile.php' >
+                      <span class='icon'><i class='fas fa-user'></i></span>
+                      <span class='title'>Login</span>
+                    </a>
+                  </li>";
+        }
       }
       ?>
       <!-------------------->
