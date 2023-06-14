@@ -119,6 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <?php
+            // Printing errors
             echo " <p class='text-danger text-center'>" . "$login_err" . "</p>";
             ?>
 
@@ -158,8 +159,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </div>
             <div class="text-center">
+                <!-- Forgot password and signup link --> 
                 <p>Forgot password? <a href="recover-password.php">Reset password</a></p>
                 <p>Not a member? <a href="signup.php">Sign up</a></p>
+
+                <!-- Social media icons -->
                 <button type="button" class="btn btn-link btn-floating mx-1">
                     <a href="https://www.instagram.com/quakefocus/" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-instagram"></i>

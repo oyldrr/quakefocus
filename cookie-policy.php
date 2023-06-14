@@ -25,6 +25,7 @@ include_once "header.php";
 
 <body>
 
+    <!-- Displaying pdf -->
     <div class="content pt-5">
         <div class="text-center">
             <iframe src="img/Cookie Policy.pdf" frameborder="0" height="750px" width="80%"></iframe>

@@ -72,7 +72,7 @@
                 </div>
                 <!---------- End ---------->
 
-                <!-- Corporation -->
+                <!-- Organization Links -->
                 <div class="col-lg-2 col-md-3 mb-4 col-sm-4 mb-lg-0">
                     <h6 class="text-uppercase font-weight-bold mb-4" data-aos="fade-down" data-aos-delay="200">Organization</h6>
                     <ul class="list-unstyled mb-0">

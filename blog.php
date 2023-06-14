@@ -31,6 +31,7 @@ include_once "header.php";
             </h1>
 
             <?php
+            // Getting recent post from database
             $stmt = $conn->prepare('SELECT * FROM posts ORDER BY created_at DESC');
             $stmt->execute();
             $result = $stmt->get_result();
@@ -55,12 +56,12 @@ include_once "header.php";
                 </h1>
 
                 <?php
+                // Getting all the posts which is active and ordering by newest to oldest
                 $stmt = $conn->prepare('SELECT * FROM posts WHERE active = 1 ORDER BY created_At DESC');
                 $stmt->execute();
                 $result = $stmt->get_result();
                 while ($row = $result->fetch_assoc()) :
                 ?>
-
                     <div class="post text-light p-5 rounded" data-aos="fade-up" data-aos-delay="700">
                         <img src="img/posts-images/<?=$row['image']?>" alt="Post Image Alt">
                         <h2 data-aos="flip-up" data-aos-delay="800" data-aos-once="true">

@@ -33,11 +33,14 @@ include_once "header.php";
                         <div class="row justify-content-center">
                             <div class="col-lg-9">
                                 <h1 class="mb-3" data-aos="fade-in" data-aos-delay="100" data-aos-once="true">Contact us</h1>
+
+                                <!-- Contact form --> 
                                 <form action="https://formsubmit.co/contact@quakefocus.com" method="POST">
                                     <input type="hidden" name="_subject" value="New message from 'contact us' page!">
                                     <input type="hidden" name="_captcha" value="false">
                                     <input type="hidden" name="_next" value="https://quakefocus.com/contact.php?WeGotYourMessage">
                                     <div class="row g-3">
+                                        <!-- Inputs -->
                                         <div class="col-md-6" data-aos="fade-in" data-aos-delay="200" data-aos-once="true">
                                             <label for="fullname" class="form-label"><i class="fa fa-user"></i> Fullname </label>
                                             <input type="text" class="form-control text-primary" id="name" name="fullname" required>
@@ -58,6 +61,9 @@ include_once "header.php";
                                             <label for="message" class="form-label"><i class="fa fa-feather"></i> Message</label>
                                             <textarea style="max-height:135px; min-height:135px; max-width:100%" class="form-control text-primary" id="message" name="message" rows="5" required></textarea>
                                         </div>
+                                        <!-- End -->
+                                        
+                                        <!-- Submit Button --> 
                                         <div class="col-12" data-aos="fade-in" data-aos-delay="700" data-aos-once="true">
                                             <button type="submit" class="btn btn-primary w-100 fw-bold send-button" data-aos="fade-in" data-aos-delay="100" data-aos-once="true">
                                                 <div class="alt-send-button">
@@ -68,8 +74,10 @@ include_once "header.php";
                                                 </div>
                                             </button>
                                         </div>
+                                        <!-- End -->
                                     </div>
                                 </form>
+                                <!-- End -->
                             </div>
                         </div>
                     </div>
@@ -79,12 +87,16 @@ include_once "header.php";
                     <!-- Google Map -->
                     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d200.30405172467255!2d31.991697655448792!3d36.55737205721658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1str!2str!4v1683537827206!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <!-- End -->
+
+                    <!-- Address -->
                     <div class="contact-address">
                         <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
                         <span>
                             Sugözü mah. Kütürüp Cad. 2/8 İç kapı no:8, 07400 Alanya/Antalya
                         </span>
                     </div>
+                    <!-- End -->
+
                 </div>
             </div>
         </div>

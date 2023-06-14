@@ -43,11 +43,14 @@ include_once "header.php";
             </div>
             <p class="text-center h1" data-aos="fade-up" data-aos-delay="600">
                 <i class="fas fa-caret-right"></i>
+                
                 <span class="firm-count">
                     <?php
+                    //Getting firm counts from database
                     $result = mysqli_query($conn, "SELECT * FROM `supporters` WHERE active = 1 AND tag LIKE 'firm'");
                     $row_count = mysqli_num_rows($result);
                     echo "$row_count";
+                    //
                     ?>
                 </span>
                 <i class="fas fa-caret-left"></i>
@@ -57,6 +60,7 @@ include_once "header.php";
             </p>
 
             <?php
+            //Getting  supporter firms from database
             $stmt = $conn->prepare("SELECT * FROM `supporters` WHERE active = 1 AND tag LIKE 'firm' ORDER BY amount DESC");
             $stmt->execute();
             $result = $stmt->get_result();
@@ -70,6 +74,7 @@ include_once "header.php";
                 </div>
             <?php
             endwhile;
+            //
             ?>
 
             <hr class="divider">
@@ -84,9 +89,11 @@ include_once "header.php";
                 <i class="fas fa-caret-right"></i>
                 <span class="person-count">
                     <?php
+                    // Getting people counts from database
                     $result = mysqli_query($conn, "SELECT * FROM `supporters` WHERE active = 1 AND tag LIKE 'financially' OR tag LIKE 'voluntarily'");
                     $row_count = mysqli_num_rows($result);
                     echo "$row_count";
+                    //
                     ?>
                 </span>
                 <i class="fas fa-caret-left"></i>
@@ -100,6 +107,7 @@ include_once "header.php";
                     <h3 class="px-3 text-capitalize" data-aos="fade-right" data-aos-delay="400">financially</h3>
 
                     <?php
+                    // Getting supporter people from database
                     $stmt = $conn->prepare("SELECT * FROM `supporters` WHERE active = 1 AND tag LIKE 'financially' ORDER BY amount DESC");
                     $stmt->execute();
                     $result = $stmt->get_result();
@@ -121,6 +129,7 @@ include_once "header.php";
                     <h3 class="px-3 text-capitalize" data-aos="fade-right" data-aos-delay="600">voluntarily</h3>
 
                     <?php
+                    // Volunteer data getting from database
                     $stmt = $conn->prepare("SELECT * FROM `supporters` WHERE active = 1 AND tag LIKE 'voluntarily' ORDER BY amount DESC");
                     $stmt->execute();
                     $result = $stmt->get_result();
@@ -134,6 +143,7 @@ include_once "header.php";
                         </div>
                     <?php
                     endwhile;
+                    //
                     ?>  
                 </div>
             </div>

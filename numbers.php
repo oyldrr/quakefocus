@@ -26,6 +26,8 @@ include_once "header.php";
 
 <body>
     <?php
+    
+    // Supply data from database
     $stmt = $conn->prepare("SELECT * FROM `supply` ORDER BY created_at DESC");
     $stmt->execute();
     $result = $stmt->get_result();

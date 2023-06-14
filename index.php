@@ -48,6 +48,7 @@ include_once "header.php";
 
 
                 <?php
+                // If logged in shows the Start now, if its not shows the Login
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     echo "
                     <button class='btn btn-primary' id='startCounterBtn' data-aos='fade-in' data-aos-delay='500'>
@@ -63,12 +64,14 @@ include_once "header.php";
                 }
                 ?>
 
+                <!-- Shows up errors, success messages etc. --> 
                 <h1 class="message text-light mt-5"></h1>
 
 
                 <!-- Options -->
                 <div class="text-light" id="pomodoroOptions">
                     <h3>Select a help option</h3>
+                    
                     <div class="options">
                         <button id="optionWater">
                             <img src="img/drop.png" alt="water" width="50px">

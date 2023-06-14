@@ -5,6 +5,8 @@ include_once "header.php";
 
 session_start();
 
+
+// If its not logged in direct to login page
 if (isset($_SESSION["loggedin"]) !== true) {
     header('location:login.php');
     exit();
