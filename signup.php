@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						// Attempt to execute the prepared statement
 						if (mysqli_stmt_execute($stmt)) {
 							// Redirect to login page
-							header('location: login.php');
+							header('location: login.php?registration=successfull');
 							exit();
 						} else {
 							echo "Oops! Something went wrong. Please try again later.";
@@ -101,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/signup.css">
 
 	<!-- Bootstrap Library -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
@@ -112,158 +111,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<div class="content pt-5 text-light">
-		<div class="d-flex">
-			<img class="mx-auto" src="img/logo.png" alt="logo" width="200">
-		</div>
-		<form id="regForm" action="" method="POST">
-			<h1>Sign up:</h1>
-			<p  class="my-1 text-center text-danger" id="errors"></p>
-			<!-- One "tab" for each step in the form: -->
-			<div class="tab">Personal Info:
-				<p><input required placeholder="Full name..." oninput="this.className = ''" name="signup-name" type="text"></p>
-				<p><input required placeholder="E-mail..." oninput="this.className = ''" name="signup-mail" id="mail" type="email"></p>
+	<div class="content pt-5 d-flex justify-content-center">
+		<form action="" method="POST" class="w-50 text-light">
+
+			<div class="d-flex mt-5">
+				<img class="mx-auto pb-3" src="img/logo.png" alt="logo" width="150">
 			</div>
-			<div class="tab">Password:
-				<p><input required placeholder="Password..." oninput="this.className = ''" name="signup-password" id="password" type="password"></p>
-				<p><input required placeholder="Confirm password..." oninput="this.className = ''" name="signup-cpassword" id="cpassword" type="password"></p>
+
+			<!-- Name input -->
+			<h5>Personal Info (Required)</h5>
+			<div class="form-outline mb-4">
+				<input required class="form-control me-1" placeholder="Full name" name="signup-name" type="text">
+				<input required class="form-control" placeholder="E-mail" name="signup-mail" id="mail" type="email">
 			</div>
-			<div class="tab">Birthday: (Optional)
-				<p><input placeholder="dd.mm.yyyy" oninput="this.className = ''" name="signup-birthday" type="date"></p>
+
+			<!-- Password input -->
+			<h5>Password (Required)</h5>
+			<div class="form-outline mb-4">
+				<input required class="form-control me-1" placeholder="Password" name="signup-password" id="password" type="password">
+				<input required class="form-control " placeholder="Confirm password" name="signup-cpassword" id="cpassword" type="password">
 			</div>
-			<div class="tab">Country: (Optional)
-				<p><input placeholder="Country..." oninput="this.className = ''" name="signup-country" type="text"></p>
-				<p><input placeholder="Province..." oninput="this.className = ''" name="signup-province" type="text"></p>
-				<p><input placeholder="City..." oninput="this.className = ''" name="signup-city" type="text"></p>
+
+			<!-- Birthday input -->
+			<h5>Birthdate (Optional)</h5>
+			<div class="form-outline mb-4">
+				<input class="form-control" placeholder="dd.mm.yyyy" name="signup-birthday" type="date">
 			</div>
-			<div class="tab">Contact Info: (Optional)
-				<p><input placeholder="Phone..." oninput="this.className = ''" name="signup-phone" type="text"></p>
-				<p><input placeholder="Address..." oninput="this.className = ''" name="signup-address" type="text"></p>
+
+			<!-- Adress Input -->
+			<h5>Address (Optional)</h5>
+			<div class="form-outline mb-4">
+				<input class="form-control me-1" placeholder="Country" name="signup-country" type="text">
+				<input class="form-control me-1" placeholder="Province" name="signup-province" type="text">
+				<input class="form-control" placeholder="City" name="signup-city" type="text">
 			</div>
-			<div style="overflow:auto;">
-				<div style="float:right;">
-					<button class="buttonRegForm" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-					<button class="buttonRegForm" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+			<!-- Contact Info -->
+			<h5>Contact Info (Optional)</h5>
+			<div class="form-outline mb-4">
+				<input class="form-control me-1" placeholder="Phone" name="signup-phone" type="text">
+				<input class="form-control" placeholder="Address" name="signup-address" type="text">
+			</div>
+			<!-- 2 column grid layout for inline styling -->
+			<div class="row mb-4">
+				<div class="col">
+				<p>Already have an account? <a href="login.php">Login</a></p>
+				</div>
+				<div class="col">
+					<!-- Submit button -->
+					<input type="submit" class="btn btn-primary mb-4 w-100" value="Sign in">
 				</div>
 			</div>
-			<!-- Circles which indicates the steps of the form: -->
-			<div style="text-align:center;margin-top:40px;">
-				<span class="step"></span>
-				<span class="step"></span>
-				<span class="step"></span>
-				<span class="step"></span>
-				<span class="step"></span>
-			</div>
+			
+		<hr class="my-5 py-5">
+		<hr class="my-5 py-5">
 		</form>
-
-		<?php include_once "footer.php"; ?>
-
-		<script>
-			const errors = document.getElementById("errors");
-
-			/* Sign up Page */
-			let currentTab = 0; // Current tab is set to be the first tab (0)
-			showTab(currentTab); // Display the crurrent tab
-
-			function showTab(n) {
-				errors.innerText = "";
-				// This function will display the specified tab of the form...
-				const x = document.getElementsByClassName("tab");
-				x[n].style.display = "block";
-				//... and fix the Previous/Next buttons:
-				if (n === 0) {
-					document.getElementById("prevBtn").style.display = "none";
-				} else {
-					document.getElementById("prevBtn").style.display = "inline";
-				}
-				if (n === (x.length - 1)) {
-					document.getElementById("nextBtn").innerHTML = "Submit";
-
-				} else {
-					document.getElementById("nextBtn").innerHTML = "Next";
-				}
-				//... and run a function that will display the correct step indicator:
-				fixStepIndicator(n)
-			}
-
-			function nextPrev(n) {
-				// This function will figure out which tab to display
-				const x = document.getElementsByClassName("tab");
-				// Exit the function if any field in the current tab is invalid:
-				if (n === 1 && !validateForm()) return false;
-				// Hide the current tab:
-				x[currentTab].style.display = "none";
-				// Increase or decrease the current tab by 1:
-				currentTab = currentTab + n;
-				// if you have reached the end of the form...
-				if (currentTab >= x.length) {
-					// ... the form gets submitted:
-					document.getElementById("regForm").submit();
-					return false;
-				}
-				// Otherwise, display the correct tab:
-				showTab(currentTab);
-			}
-
-			function validateForm() {
-				// This function deals with validation of the form fields
-				let x;
-
-				let y;
-				let i;
-				let valid = true;
-				x = document.getElementsByClassName("tab");
-				y = x[currentTab].getElementsByTagName("input");
-				// A loop that checks every input field in the current tab:
-				for (i = 0; i < y.length; i++) {
-					// If a field is empty...
-					if (y[i].value === "" && y[i].required == true) {
-						// add an "invalid" class to the field:
-						y[i].className += " invalid";
-						// and set the current valid status to false
-						valid = false;
-					}
-				}
-
-				// Checking the mail is correct...
-				var email = document.getElementById("mail");
-				if (email.value && email.value.includes('@') && email.value.includes('.')){
-					valid = true;
-					errors.innerText = "";
-				}
-				else {
-					valid = false;
-					errors.innerText = "Please be sure email is correct!";
-				}
-				//
-
-				// Checking the passwords are the same or not...
-				if(document.getElementById("password").value != document.getElementById("cpassword").value) {
-					valid = false;
-					errors.innerText = "Passwords are diffrent!";
-				}
-				//
-
-				// If the valid status is true, mark the step as finished and valid:
-				if (valid) {
-					document.getElementsByClassName("step")[currentTab].className += " finish";
-				}
-				return valid; // return the valid status
-			}
-
-			function fixStepIndicator(n) {
-				// This function removes the "active" class of all steps...
-				let i;
-
-				const x = document.getElementsByClassName("step");
-				for (i = 0; i < x.length; i++) {
-					x[i].className = x[i].className.replace(" active", "");
-				}
-				//... and adds the "active" class on the current step:
-				x[n].className += " active";
-			}
-			/* */
-		</script>
+	</div>
+	<?php include_once "footer.php"; ?>
 </body>
 
 </html>

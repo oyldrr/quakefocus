@@ -117,6 +117,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="d-flex mt-5">
                 <img class="mx-auto pb-3" src="img/logo.png" alt="logo" width="150">
             </div>
+            
+            <?php
+            $condition = $_GET['registration'];
+            if ($condition == "succesfull") {
+                echo "<h5 class='text-center text-light'>You registered successfully!</h5>";
+            }
+            ?>
 
             <?php
             // Printing errors
@@ -137,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Password input -->
             <div class="form-outline mb-4">
                 <input name="password" type="password" id="formPassword" class="form-control" placeholder="Password" />
-                <?php 
+                <?php
                 echo "
                 <p class='text-danger'>" . "$password_err" . "</p> ";
                 ?>
@@ -159,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </div>
             <div class="text-center">
-                <!-- Forgot password and signup link --> 
+                <!-- Forgot password and signup link -->
                 <p>Forgot password? <a href="recover-password.php">Reset password</a></p>
                 <p>Not a member? <a href="signup.php">Sign up</a></p>
 

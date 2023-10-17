@@ -391,6 +391,14 @@ body {
     margin-bottom: 5rem;
 }
 
+.form-outline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
 .form-control,
 textarea {
     max-width: 400px;
