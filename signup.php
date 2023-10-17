@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<div class="content pt-5 d-flex justify-content-center">
+	<div class="content py-5 d-flex justify-content-center">
 		<form action="" method="POST" class="w-50 text-light">
 
 			<div class="d-flex mt-5">
@@ -154,18 +154,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<!-- 2 column grid layout for inline styling -->
 			<div class="row mb-4">
 				<div class="col">
-				<p>Already have an account? <a href="login.php">Login</a></p>
+					<p>Already have an account? <a href="login.php">Login</a></p>
 				</div>
 				<div class="col">
 					<!-- Submit button -->
 					<input type="submit" class="btn btn-primary mb-4 w-100" value="Sign in">
 				</div>
 			</div>
-			
-		<hr class="my-5 py-5">
-		<hr class="my-5 py-5">
 		</form>
 	</div>
+	
+	<div class="d-block mt-5 pt-5"></div>
 	<?php include_once "footer.php"; ?>
 </body>
 
