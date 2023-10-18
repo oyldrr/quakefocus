@@ -50,7 +50,7 @@ include_once "header.php";
                 </div>
             </div>
 
-            <div class="post-list">
+            <div class="row mt-5 post-list">
                 <h1 data-aos="fade-right" data-aos-delay="600">
                     <i class="fas fa-bars"></i> Other Posts
                 </h1>
@@ -62,7 +62,7 @@ include_once "header.php";
                 $result = $stmt->get_result();
                 while ($row = $result->fetch_assoc()) :
                 ?>
-                    <div class="post text-light p-5 rounded" data-aos="fade-up" data-aos-delay="700">
+                    <div class="col-sm-10 col-md-4 mx-auto mb-3 post text-light p-5 rounded" data-aos="fade-up" data-aos-delay="700">
                         <img src="img/posts-images/<?=$row['image']?>" alt="Post Image Alt">
                         <h2 data-aos="flip-up" data-aos-delay="800" data-aos-once="true">
                             <?= $row['title'] ?>
