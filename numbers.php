@@ -39,7 +39,7 @@ include_once "header.php";
         <h1 class="numbers-heading">
             What did we success?
         </h1>
-        <div class="chartCard">
+        <div class="chartCard mx-auto">
             <div class="chartBox">
                 <canvas id="myChart"></canvas>
                 <p class="text-light text-center mt-5">Last Data Update at <?= $row['created_at'] ?></p>
