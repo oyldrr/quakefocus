@@ -35,7 +35,7 @@ include_once "header.php";
                 <button class="btn btn-light">Support as a person</button>
             </div>
         </div>
-        <div class="w-75 mx-auto text-light">
+        <div class="w-75 mx-auto text-light mt-5 pt-5">
             <div class="section-heading" data-aos="flip-down" data-aos-delay="500">
                 <span class="section-title text-capitalize">
                     firms
@@ -103,7 +103,7 @@ include_once "header.php";
             </p>
             <div class="row mx-auto mt-5">
 
-                <div class="col-6">
+                <div class="col-sm-12 col-md-6">
                     <h3 class="px-3 text-capitalize" data-aos="fade-right" data-aos-delay="400">financially</h3>
 
                     <?php
@@ -125,7 +125,7 @@ include_once "header.php";
 
                 </div>
 
-                <div class="col-6">
+                <div class="col-sm-12 col-md-6">
                     <h3 class="px-3 text-capitalize" data-aos="fade-right" data-aos-delay="600">voluntarily</h3>
 
                     <?php
