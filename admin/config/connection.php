@@ -4,10 +4,7 @@ $conn = mysqli_connect('localhost', 'root', 'password', 'quakefocus');
 
 if (!$conn) {
     echo 'Connection error : ' . mysqli_connect_error();
-} else {
-    $sql = "INSERT INTO `counter` (`visited_page`, `REMOTE_ADDR`, `HTTP_X_FORWARDED_FOR`) VALUES ('".$_SERVER['PHP_SELF']."', '".$_SERVER['REMOTE_ADDR']."', '".$_SERVER['HTTP_X_FORWARDED_FOR']."')";
-    $conn->query($sql);
-}
+} 
 
 // PDO
 try {
