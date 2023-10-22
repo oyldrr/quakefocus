@@ -21,14 +21,14 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - Quakefocus Admin</title>
+    <title>Counter - Quakefocus Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    
+
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -41,83 +41,24 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
+                <h1 class="mt-4">Counter</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Counter / 
+                    <?php
+                    if ($_GET["users"] == "any"){
+                        echo "Total Visitors";
+                    }elseif ($_GET["users"] == "unique"){
+                        echo "Unique Users";
+                    }
+                    ?>
+                </li>
                 </ol>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Total Visit</div>
-                            <?php
-                            // Getting counter data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM counter");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="text-decoration-none text-light text-right"  href="counter.php?users=any">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Total User</div>
-                            <?php
-                            // Getting total user data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM users");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="text-decoration-none text-light text-right"  href="users.php">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Total Post</div>
-                            <?php
-                            // Getting total user data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM posts");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="text-decoration-none text-light text-right"  href="posts.php">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Total Supporter</div>
-                            <?php
-                            // Getting total user data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM supporters");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="text-decoration-none text-light text-right"  href="supporters.php">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
-                                Daily Visits (Unique Users)
+                                Daily Visits
                             </div>
                             <div class="card-body"><canvas id="dailyVisits" width="100%" height="40"></canvas></div>
                         </div>
@@ -135,50 +76,51 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-users me-1"></i>
-                        Active Users
+                        <i class="fas fa-database me-1"></i>
+                        Visit Records
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Fullname</th>
-                                    <th>Birthdate</th>
-                                    <th>Country</th>
-                                    <th>Rank</th>
-                                    <th>Type</th>
-                                    <th>Created At</th>
+                                    <th>Visited Date</th>
+                                    <th>Visited Page</th>
+                                    <th>IP</th>
+                                    <th>IP (Via Proxy)</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Fullname</th>
-                                    <th>Birthdate</th>
-                                    <th>Country</th>
-                                    <th>Rank</th>
-                                    <th>Type</th>
-                                    <th>Created At</th>
+                                    <th>Visited Date</th>
+                                    <th>Visited Page</th>
+                                    <th>IP</th>
+                                    <th>IP (Via Proxy)</th>
                                 </tr>
                             </tfoot>
 
                             <tbody>
                                 <?php
+                                if ($_GET["users"] == "any") {
+                                    $sql = "SELECT * FROM counter";
+                                } elseif ($_GET["users"] == "unique") {
+                                    // Add a WHERE condition to select rows where REMOTE_ADDR is unique
+                                    $sql = "SELECT * FROM counter GROUP BY REMOTE_ADDR";
+                                }
+
                                 // Getting all the users which is active and ordering by newest to oldest
-                                $stmt = $conn->prepare("SELECT *  FROM users WHERE active = 1 ORDER BY created_at DESC");
+                                $stmt = $conn->prepare($sql);
                                 $stmt->execute();
                                 $result = $stmt->get_result();
                                 while ($row = $result->fetch_assoc()) :
                                 ?>
                                     <tr>
                                         <td><?= $row['id'] ?></td>
-                                        <td><?= $row['fullname'] ?></td>
-                                        <td><?= $row['birthdate'] ?></td>
-                                        <td><?= $row['country'] ?></td>
-                                        <td><?= $row['rank'] ?></td>
-                                        <td><?= $row['type'] ?></td>
-                                        <td><?= $row['created_at'] ?></td>
+                                        <td><?= $row['visited_date'] ?></td>
+                                        <td><?= $row['visited_page'] ?></td>
+                                        <td><?= $row['REMOTE_ADDR'] ?></td>
+                                        <td><?= $row['HTTP_X_FORWARDED_FOR'] ?></td>
                                     </tr>
 
                                 <?php
@@ -223,7 +165,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
         // Loop through each day in the desired date range
 
-        
+
         $currentYear = date('Y');
         $currentMonth = date('m');
 
@@ -235,7 +177,12 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
         $currentDate = $startDate;
         while ($currentDate <= $endDate) {
-            $sql = "SELECT COUNT(DISTINCT REMOTE_ADDR) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%Y-%m-%d') = ?";
+            if ($_GET["users"] == "any") {
+                $sql = "SELECT COUNT(*) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%Y-%m-%d') = ?";
+            } elseif ($_GET["users"] == "unique") {
+                // Add a WHERE condition to select rows where REMOTE_ADDR is unique
+                $sql = "SELECT COUNT(DISTINCT REMOTE_ADDR) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%Y-%m-%d') = ?";
+            }
 
             // Use prepared statements to avoid SQL injection
             $stmt = $conn->prepare($sql);
@@ -306,7 +253,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: 50,
+                            max: 100,
                             maxTicksLimit: 10
                         },
                         gridLines: {
@@ -341,7 +288,12 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
         // Loop through each month and fetch the data
         foreach ($months as $monthName) {
-            $sql = "SELECT COUNT(*) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%M') = ?";
+            if ($_GET["users"] == "any") {
+                $sql = "SELECT COUNT(*) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%M') = ?";
+            } elseif ($_GET["users"] == "unique") {
+                // Add a WHERE condition to select rows where REMOTE_ADDR is unique
+                $sql = "SELECT COUNT(DISTINCT REMOTE_ADDR) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%M') = ?";
+            }
 
             // Use prepared statements to avoid SQL injection
             $stmt = $conn->prepare($sql);

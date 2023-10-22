@@ -21,14 +21,14 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - Quakefocus Admin</title>
+    <title>Users - Quakefocus Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    
+
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -41,94 +41,29 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
+                <h1 class="mt-4">Users</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Users</li>
                 </ol>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Total Visit</div>
-                            <?php
-                            // Getting counter data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM counter");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="text-decoration-none text-light text-right"  href="counter.php?users=any">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Total User</div>
-                            <?php
-                            // Getting total user data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM users");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="text-decoration-none text-light text-right"  href="users.php">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Total Post</div>
-                            <?php
-                            // Getting total user data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM posts");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="text-decoration-none text-light text-right"  href="posts.php">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Total Supporter</div>
-                            <?php
-                            // Getting total user data
-                            $stmt = $conn->prepare("SELECT count(*) as total FROM supporters");
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <span class="text-left mx-3 h3"><?= $row['total'] ?></span>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="text-decoration-none text-light text-right"  href="supporters.php">More details <i class="fas fa-caret-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
-                                Daily Visits (Unique Users)
+                                Daily Registration
                             </div>
-                            <div class="card-body"><canvas id="dailyVisits" width="100%" height="40"></canvas></div>
+                            <div class="card-body"><canvas id="dailyRegistration" width="100%" height="40"></canvas></div>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar me-1"></i>
-                                Monthly Visits
+                                Monthly Registration
                             </div>
-                            <div class="card-body"><canvas id="monthlyVisits" width="100%" height="40"></canvas></div>
+                            <div class="card-body"><canvas id="monthlyRegistration" width="100%" height="40"></canvas></div>
                         </div>
                     </div>
                 </div>
@@ -136,29 +71,47 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-users me-1"></i>
-                        Active Users
+                        User Records
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
                                     <th>Fullname</th>
                                     <th>Birthdate</th>
                                     <th>Country</th>
+                                    <th>Province</th>
+                                    <th>City</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Image Path</th>
                                     <th>Rank</th>
                                     <th>Type</th>
+                                    <th>Active</th>
+                                    <th>Updated At</th>
                                     <th>Created At</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>#</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
                                     <th>Fullname</th>
                                     <th>Birthdate</th>
                                     <th>Country</th>
+                                    <th>Province</th>
+                                    <th>City</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Image Path</th>
                                     <th>Rank</th>
                                     <th>Type</th>
+                                    <th>Active</th>
+                                    <th>Updated At</th>
                                     <th>Created At</th>
                                 </tr>
                             </tfoot>
@@ -166,18 +119,27 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                             <tbody>
                                 <?php
                                 // Getting all the users which is active and ordering by newest to oldest
-                                $stmt = $conn->prepare("SELECT *  FROM users WHERE active = 1 ORDER BY created_at DESC");
+                                $stmt = $conn->prepare("SELECT *  FROM users ORDER BY created_at DESC");
                                 $stmt->execute();
                                 $result = $stmt->get_result();
                                 while ($row = $result->fetch_assoc()) :
                                 ?>
                                     <tr>
                                         <td><?= $row['id'] ?></td>
+                                        <td><?= $row['uname'] ?></td>
+                                        <td><?= $row['pwd'] ?></td>
                                         <td><?= $row['fullname'] ?></td>
                                         <td><?= $row['birthdate'] ?></td>
                                         <td><?= $row['country'] ?></td>
+                                        <td><?= $row['province'] ?></td>
+                                        <td><?= $row['city'] ?></td>
+                                        <td><?= $row['phone'] ?></td>
+                                        <td><?= $row['address'] ?></td>
+                                        <td><?= $row['user_img'] ?></td>
                                         <td><?= $row['rank'] ?></td>
                                         <td><?= $row['type'] ?></td>
+                                        <td><?= $row['active'] ?></td>
+                                        <td><?= $row['updated_at'] ?></td>
                                         <td><?= $row['created_at'] ?></td>
                                     </tr>
 
@@ -216,14 +178,14 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
         <?php
         // Initialize an array to store daily visit counts
-        $dailyVisits = array();
+        $dailyRegistration = array();
 
         // Create an array to store daily labels
         $dailyLabels = array();
 
         // Loop through each day in the desired date range
 
-        
+
         $currentYear = date('Y');
         $currentMonth = date('m');
 
@@ -235,7 +197,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
         $currentDate = $startDate;
         while ($currentDate <= $endDate) {
-            $sql = "SELECT COUNT(DISTINCT REMOTE_ADDR) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%Y-%m-%d') = ?";
+            $sql = "SELECT COUNT(*) AS total_user FROM users WHERE DATE_FORMAT(created_at, '%Y-%m-%d') = ?";
 
             // Use prepared statements to avoid SQL injection
             $stmt = $conn->prepare($sql);
@@ -244,10 +206,10 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
-            $visitCount = $row["visit_count"];
+            $userCount = $row["total_user"];
 
             // Store the data in the array
-            $dailyVisits[] = $visitCount;
+            $dailyRegistration[] = $userCount;
 
             // Store the current date in the labels array
             $dailyLabels[] = $currentDate;
@@ -260,23 +222,23 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
         }
 
         // Convert the arrays to JSON
-        $dailyVisitsJSON = json_encode($dailyVisits);
+        $dailyRegistrationJSON = json_encode($dailyRegistration);
         $dailyLabelsJSON = json_encode($dailyLabels);
         ?>
 
 
         // Area Chart Example
-        var ctx = document.getElementById("dailyVisits");
+        var ctx = document.getElementById("dailyRegistration");
 
         var dailyLabels = <?= $dailyLabelsJSON ?>;
-        var dailyVisits = <?= $dailyVisitsJSON ?>;
+        var dailyRegistration = <?= $dailyRegistrationJSON ?>;
 
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: dailyLabels,
                 datasets: [{
-                    label: "Visits",
+                    label: "New users",
                     lineTension: 0.3,
                     backgroundColor: "rgba(2,117,216,0.2)",
                     borderColor: "rgba(2,117,216,1)",
@@ -287,7 +249,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                     pointHoverBackgroundColor: "rgba(2,117,216,1)",
                     pointHitRadius: 50,
                     pointBorderWidth: 2,
-                    data: dailyVisits,
+                    data: dailyRegistration,
                 }],
             },
             options: {
@@ -306,7 +268,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: 50,
+                            max: 5,
                             maxTicksLimit: 10
                         },
                         gridLines: {
@@ -331,7 +293,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
         // Getting Monthly datas from the database
         <?php
         // Initialize an array to store monthly visit counts
-        $monthlyVisits = array();
+        $monthlyRegistration = array();
 
         // Create an array with month names
         $months = [
@@ -341,7 +303,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
         // Loop through each month and fetch the data
         foreach ($months as $monthName) {
-            $sql = "SELECT COUNT(*) AS visit_count FROM counter WHERE DATE_FORMAT(visited_date, '%M') = ?";
+            $sql = "SELECT COUNT(*) AS total_user FROM users WHERE DATE_FORMAT(created_at, '%M') = ?";
 
             // Use prepared statements to avoid SQL injection
             $stmt = $conn->prepare($sql);
@@ -350,16 +312,16 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
-            $visitCount = $row["visit_count"];
+            $userCount = $row["total_user"];
 
             // Store the data in the array
-            $monthlyVisits[] = $visitCount;
+            $monthlyRegistration[] = $userCount;
 
             // Close the prepared statement
             $stmt->close();
         }
         // Convert the array to JSON
-        $monthlyVisitsJSON = json_encode($monthlyVisits);
+        $monthlyRegistrationJSON = json_encode($monthlyRegistration);
 
         // Generate month labels
         $monthLabels = array();
@@ -373,22 +335,22 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
         ?>
 
         // Bar Chart for Monthly Visits
-        var ctx = document.getElementById("monthlyVisits");
+        var ctx = document.getElementById("monthlyRegistration");
 
         var monthLabels = <?= $monthLabelsJSON ?>;
-        var monthlyVisits = <?= $monthlyVisitsJSON ?>;
+        var monthlyRegistration = <?= $monthlyRegistrationJSON ?>;
 
-        var monthlyVisits = <?= $monthlyVisitsJSON ?>;
+        var monthlyRegistration = <?= $monthlyRegistrationJSON ?>;
 
         var myLineChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: monthLabels,
                 datasets: [{
-                    label: "Visits",
+                    label: "New users",
                     backgroundColor: "rgba(2,117,216,1)",
                     borderColor: "rgba(2,117,216,1)",
-                    data: monthlyVisits,
+                    data: monthlyRegistration,
                 }],
             },
             options: {
@@ -407,7 +369,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: 1000,
+                            max: 20,
                             maxTicksLimit: 10
                         },
                         gridLines: {

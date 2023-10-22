@@ -6,7 +6,7 @@ session_start();
 require_once "config/connection.php";
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if (isset($_SESSION["loggedin"]) === true) {
+if (isset($_SESSION["adminLoggedin"]) === true) {
     header('location:index.php');
     exit();
 }
@@ -59,9 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             session_start();
 
                             // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;
+                            $_SESSION["adminLoggedin"] = true;
+                            $_SESSION["adminId"] = $id;
+                            $_SESSION["adminUsername"] = $username;
 
                             // Redirect user to welcome page
                             header('location:index.php');
