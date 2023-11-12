@@ -314,11 +314,12 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
         $monthlyVisitsJSON = json_encode($monthlyVisits);
 
         // Generate month labels
-        $monthLabels = array();
+        $monthLabels = array('October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September');
 
-        for ($i = 0; $i < 12; $i++) {
-            $monthLabels[] = date('F', strtotime("+$i months"));
-        }
+        //for ($i = 0; $i < 12; $i++) {
+        //    $monthLabels[] = date('F', strtotime("+$i months"));
+        //}
 
         // Convert the array to JSON
         $monthLabelsJSON = json_encode($monthLabels);
