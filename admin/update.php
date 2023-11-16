@@ -21,7 +21,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Supporters - Quakefocus Admin</title>
+    <title>Update - Quakefocus Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
 
@@ -41,24 +41,20 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Supporters</h1>
+                <h1 class="mt-4">Update</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Supporters</li>
                 </ol>
 
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <div>
-                            <i class="fas fa-users me-1"></i>
-                            Supporter Records
-                        </div>
-                        <a class="btn btn-secondary " href="insert.php?table=supporters">Create new <i class="fas fa-plus-circle"></i></a>
+                    <div class="card-header">
+                        <i class="fas fa-users me-1"></i>
+                        Supporter Records
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Message</th>
@@ -72,7 +68,6 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th></th>
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Message</th>
@@ -94,7 +89,6 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                                 while ($row = $result->fetch_assoc()) :
                                 ?>
                                     <tr>
-                                        <td class="align-middle"><a href="update.php?table=supporters&id=<?= $row['id'] ?>"><i class="fas fa-cog"></i></a></td>
                                         <td><?= $row['id'] ?></td>
                                         <td><?= $row['name'] ?></td>
                                         <td><?= $row['message'] ?></td>
@@ -126,9 +120,6 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
 
 </body>
 

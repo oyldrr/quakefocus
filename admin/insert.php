@@ -47,12 +47,9 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                 </ol>
 
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <div>
-                            <i class="fas fa-users me-1"></i>
-                            Supporter Records
-                        </div>
-                        <a class="btn btn-secondary " href="insert.php?table=supporters">Create new <i class="fas fa-plus-circle"></i></a>
+                    <div class="card-header">
+                        <i class="fas fa-users me-1"></i>
+                        Supporter Records
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
@@ -94,7 +91,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                                 while ($row = $result->fetch_assoc()) :
                                 ?>
                                     <tr>
-                                        <td class="align-middle"><a href="update.php?table=supporters&id=<?= $row['id'] ?>"><i class="fas fa-cog"></i></a></td>
+                                        <td><a href="update.php?table=supporters&id=<?= $row['id']?>"><i class="fas fa-cog"></i></a></td>
                                         <td><?= $row['id'] ?></td>
                                         <td><?= $row['name'] ?></td>
                                         <td><?= $row['message'] ?></td>
