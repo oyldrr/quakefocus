@@ -68,14 +68,18 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                 </div>
 
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-users me-1"></i>
-                        Supply
+                    <div class="card-header d-flex justify-content-between">
+                        <div>
+                            <i class="fas fa-users me-1"></i>
+                            Supply
+                        </div>
+                        <a class="btn btn-primary " href="insert.php?table=supply">Create new <i class="fas fa-plus-circle"></i></a>
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>#</th>
                                     <th>Water</th>
                                     <th>Food</th>
@@ -88,6 +92,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                             </thead>
                             <tfoot>
                                 <tr>
+                                    <th></th>
                                     <th>#</th>
                                     <th>Water</th>
                                     <th>Food</th>
@@ -108,6 +113,12 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                                 while ($row = $result->fetch_assoc()) :
                                 ?>
                                     <tr>
+                                        <td>
+                                            <a class="btn btn-link" href="update.php?table=supply&id=<?= $row['id'] ?>">
+                                                <i class="fas fa-cog">
+                                                </i>
+                                            </a>
+                                        </td>
                                         <td><?= $row['id'] ?></td>
                                         <td><?= $row['water'] ?></td>
                                         <td><?= $row['food'] ?></td>
@@ -299,8 +310,10 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
         $monthlySupplyJSON = json_encode($monthlySupply);
 
         // Generate month labels
-        $monthLabels = array('October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September');
+        $monthLabels = array(
+            'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September'
+        );
 
         // for ($i = 0; $i < 12; $i++) {
         //     $monthLabels[] = date('F', strtotime("+$i months"));
