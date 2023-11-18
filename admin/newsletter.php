@@ -21,7 +21,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Update - Quakefocus Admin</title>
+    <title>Newsletter - Quakefocus Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
 
@@ -40,28 +40,12 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
     <div id="layoutSidenav_content">
         <main>
-			<?php 
-			if ($_GET['table'] == "users") {
-				echo "";
-			}
-
-			elseif ($_GET['table'] == "supporters") {
-				echo "";
-			}
-
-			elseif ($_GET['table'] == "supply") {
-				echo "";
-			}
-
-			elseif ($_GET['table'] == "newsletter") {
-				echo "";
-			}
-
-			?>
-
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Newsletter</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Newsletter</li>
+                </ol>
         </main>
-
-
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
