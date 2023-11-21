@@ -28,7 +28,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 			$active = mysqli_real_escape_string($conn, $_POST['insert-active']);
 
 			$insert = "INSERT INTO `users` 
-			(`uname`, `pwd`, `fullname`, `birthdate`, `country`, `province`, `city`, `phone`, `address`, `image`, `rank`, `type`, `active`) 
+			(`uname`, `pwd`, `fullname`, `birthdate`, `country`, `province`, `city`, `phone`, `address`, `user_img`, `rank`, `type`, `active`) 
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			if ($stmt = mysqli_prepare($conn, $insert)) {
@@ -64,18 +64,47 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 			} else {
 				header('location: insert.php?table=users&mysqliproblem');
 			}
-		}
-		
-		elseif ($_GET['table'] == "supporters") {
-			
-		}
+		} elseif ($_GET['table'] == "supporters") {
+			$name = mysqli_real_escape_string($conn, $_POST['insert-name']);
+			$message = mysqli_real_escape_string($conn, $_POST['insert-message']);
+			$amount = mysqli_real_escape_string($conn, $_POST['insert-amount']);
+			$image = mysqli_real_escape_string($conn, $_POST['insert-image']);
+			$active = mysqli_real_escape_string($conn, $_POST['insert-active']);
+			$tag = mysqli_real_escape_string($conn, $_POST['insert-tag']);
 
-		elseif ($_GET['table'] == "supply") {
-			
-		}
+			$insert = "INSERT INTO 
+			`supporters` (`name`, `message`, `amount`, `image`, `active`, `tag`)
+			VALUES (?, ?, ?, ?, ?, ?)";
 
-		elseif ($_GET['table'] == "newsletter") {
-			
+
+			if ($stmt = mysqli_prepare($conn, $insert)) {
+				// Bind variables to the prepared statement as parameters
+				mysqli_stmt_bind_param($stmt, "ssssss", $param_name, $param_message, $param_amount, $param_image, $param_active, $param_tag);
+
+				// Set parameters
+				$param_name = $name;
+				$param_message = $message;
+				$param_amount = $amount;
+				$param_image = $image;
+				$param_active = $active;
+				$param_tag = $tag;
+
+				// Attempt to execute the prepared statement
+				if (mysqli_stmt_execute($stmt)) {
+					// Redirect to login page
+					header('location: supporters.php?insertion=successfull');
+					exit();
+				} else {
+					echo "Oops! Something went wrong. Please try again later.";
+				}
+
+				// Close statement
+				mysqli_stmt_close($stmt);
+			} else {
+				header('location: supporters.php?mysqliproblem');
+			}
+		} elseif ($_GET['table'] == "supply") {
+		} elseif ($_GET['table'] == "newsletter") {
 		}
 	}
 }
@@ -148,8 +177,8 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 								<input class='form-control' placeholder='Address' name='insert-address' type='text'>
 							</div>
 
-							<!-- Image Info -->
-							<h5 class='text-dark'>Image Info (Optional)</h5>
+							<!-- Image -->
+							<h5 class='text-dark'>Image (Optional)</h5>
 							<div class='form-outline mb-4'>
 								<input class='form-control me-1' placeholder='Image' name='insert-image' type='file'>
 							</div>
@@ -164,25 +193,64 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 							<!-- 2 column grid layout for inline styling -->
 							<div class='row mb-4'>
 								<div class='col'>
-									<p>Already have an account? <a href='login.php'>Login</a></p>
-								</div>
-								<div class='col'>
 									<!-- Submit button -->
-									<input type='submit' class='btn btn-primary mb-4 w-100' value='Sign in'>
+									<input type='submit' class='btn btn-primary mb-4 w-100' value='Insert the record'>
 								</div>
 							</div>
 					";
-					}
-					
-					elseif ($_GET['table'] == "supporters") {
-						echo "";
-					}
+					} elseif ($_GET['table'] == "supporters") {
 
-					elseif ($_GET['table'] == "supply") {
-						echo "";
-					}
+						echo "
+                        <!-- Name input -->
+                        <h5 class='text-dark'>Name</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Name' name='insert-name' type='text'>
+                        </div>
 
-					elseif ($_GET['table'] == "newsletter") {
+                        <!-- Message input -->
+                        <h5 class='text-dark'>Message</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Message' name='insert-message' type='text'>
+                        </div>
+
+                        <!-- Amount input -->
+                        <h5 class='text-dark'>Amount</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Amount' name='insert-amount' type='text'>
+                        </div>
+
+                        <!-- Image input -->
+                        <h5 class='text-dark'>Image</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Image' name='insert-image' type='text'>
+                        </div>
+
+                        <!-- Active input -->
+                        <h5 class='text-dark'>Active</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Active' name='insert-active' type='text'>
+                        </div>
+
+                        <!-- Tag input -->
+                        <h5 class='text-dark'>Tag</h5>
+                        <div class='form-outline mb-4'>
+                            <select required class='form-control me-1' name='insert-tag'>
+								<option value='firm'>Firm</option>
+								<option value='voluntarily'>Voluntarily</option>
+								<option value='financially'>Financially</option>
+							</select>
+                        </div>
+
+                        <div class='row mb-4'>
+                            <div class='col'>
+                                <!-- Submit button -->
+                                <input type='submit' class='btn btn-primary mb-4 w-100' value='Insert the record'>
+                            </div>
+                        </div>
+						";
+					} elseif ($_GET['table'] == "supply") {
+						echo "";
+					} elseif ($_GET['table'] == "newsletter") {
 						echo "";
 					}
 
@@ -202,229 +270,6 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script src="js/scripts.js"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-	<script src="js/datatables-simple-demo.js"></script>
-
-	<!-- Charts -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-
-	<!-- Area Chart -->
-	<script>
-		// Set new default font family and font color to mimic Bootstrap's default styling
-		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-		Chart.defaults.global.defaultFontColor = '#292b2c';
-
-		<?php
-		// Initialize an array to store daily visit counts
-		$dailyRegistration = array();
-
-		// Create an array to store daily labels
-		$dailyLabels = array();
-
-		// Loop through each day in the desired date range
-
-
-		$currentYear = date('Y');
-		$currentMonth = date('m');
-
-		// Get the first day of the current month
-		$startDate = date('Y-m-01', strtotime("$currentYear-$currentMonth-01"));
-
-		// Get the last day of the current month
-		$endDate = date('Y-m-t', strtotime("$currentYear-$currentMonth-01"));
-
-		$currentDate = $startDate;
-		while ($currentDate <= $endDate) {
-			$sql = "SELECT COUNT(*) AS total_user FROM users WHERE DATE_FORMAT(created_at, '%Y-%m-%d') = ?";
-
-			// Use prepared statements to avoid SQL injection
-			$stmt = $conn->prepare($sql);
-			$stmt->bind_param("s", $currentDate);
-			$stmt->execute();
-
-			$result = $stmt->get_result();
-			$row = $result->fetch_assoc();
-			$userCount = $row["total_user"];
-
-			// Store the data in the array
-			$dailyRegistration[] = $userCount;
-
-			// Store the current date in the labels array
-			$dailyLabels[] = $currentDate;
-
-			// Move to the next day
-			$currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
-
-			// Close the prepared statement
-			$stmt->close();
-		}
-
-		// Convert the arrays to JSON
-		$dailyRegistrationJSON = json_encode($dailyRegistration);
-		$dailyLabelsJSON = json_encode($dailyLabels);
-		?>
-
-
-		// Area Chart Example
-		var ctx = document.getElementById("dailyRegistration");
-
-		var dailyLabels = <?= $dailyLabelsJSON ?>;
-		var dailyRegistration = <?= $dailyRegistrationJSON ?>;
-
-		var myLineChart = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: dailyLabels,
-				datasets: [{
-					label: "New users",
-					lineTension: 0.3,
-					backgroundColor: "rgba(2,117,216,0.2)",
-					borderColor: "rgba(2,117,216,1)",
-					pointRadius: 5,
-					pointBackgroundColor: "rgba(2,117,216,1)",
-					pointBorderColor: "rgba(255,255,255,0.8)",
-					pointHoverRadius: 5,
-					pointHoverBackgroundColor: "rgba(2,117,216,1)",
-					pointHitRadius: 50,
-					pointBorderWidth: 2,
-					data: dailyRegistration,
-				}],
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						time: {
-							unit: 'date'
-						},
-						gridLines: {
-							display: false
-						},
-						ticks: {
-							maxTicksLimit: 7
-						}
-					}],
-					yAxes: [{
-						ticks: {
-							min: 0,
-							max: 5,
-							maxTicksLimit: 10
-						},
-						gridLines: {
-							color: "rgba(0, 0, 0, .125)",
-						}
-					}],
-				},
-				legend: {
-					display: false
-				}
-			}
-		});
-	</script>
-
-	<!-- Bar Chart -->
-	<script>
-		// Set new default font family and font color to mimic Bootstrap's default styling
-		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-		Chart.defaults.global.defaultFontColor = '#292b2c';
-
-
-		// Getting Monthly datas from the database
-		<?php
-		// Initialize an array to store monthly visit counts
-		$monthlyRegistration = array();
-
-		// Create an array with month names
-		$months = [
-			'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June',
-			'July', 'August', 'September'
-		];
-
-		// Loop through each month and fetch the data
-		foreach ($months as $monthName) {
-			$sql = "SELECT COUNT(*) AS total_user FROM users WHERE DATE_FORMAT(created_at, '%M') = ?";
-
-			// Use prepared statements to avoid SQL injection
-			$stmt = $conn->prepare($sql);
-			$stmt->bind_param("s", $monthName);
-			$stmt->execute();
-
-			$result = $stmt->get_result();
-			$row = $result->fetch_assoc();
-			$userCount = $row["total_user"];
-
-			// Store the data in the array
-			$monthlyRegistration[] = $userCount;
-
-			// Close the prepared statement
-			$stmt->close();
-		}
-		// Convert the array to JSON
-		$monthlyRegistrationJSON = json_encode($monthlyRegistration);
-
-		// Generate month labels
-		$monthLabels = array(
-			'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June',
-			'July', 'August', 'September'
-		);
-
-		// for ($i = 0; $i < 12; $i++) {
-		//     $monthLabels[] = date('F', strtotime("+$i months"));
-		// }
-
-		// Convert the array to JSON
-		$monthLabelsJSON = json_encode($monthLabels);
-		?>
-
-		// Bar Chart for Monthly Visits
-		var ctx = document.getElementById("monthlyRegistration");
-
-		var monthLabels = <?= $monthLabelsJSON ?>;
-		var monthlyRegistration = <?= $monthlyRegistrationJSON ?>;
-
-		var monthlyRegistration = <?= $monthlyRegistrationJSON ?>;
-
-		var myLineChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: monthLabels,
-				datasets: [{
-					label: "New users",
-					backgroundColor: "rgba(2,117,216,1)",
-					borderColor: "rgba(2,117,216,1)",
-					data: monthlyRegistration,
-				}],
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						time: {
-							unit: 'month'
-						},
-						gridLines: {
-							display: false
-						},
-						ticks: {
-							maxTicksLimit: 12
-						}
-					}],
-					yAxes: [{
-						ticks: {
-							min: 0,
-							max: 20,
-							maxTicksLimit: 10
-						},
-						gridLines: {
-							display: true
-						}
-					}],
-				},
-				legend: {
-					display: false
-				}
-			}
-		});
-	</script>
 
 </body>
 
