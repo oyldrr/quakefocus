@@ -142,18 +142,20 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 			}
 		} elseif ($_GET['table'] == "newsletter") {
 			$email = mysqli_real_escape_string($conn, $_POST['insert-email']);
+			$active = mysqli_real_escape_string($conn, $_POST['insert-active']);
 
 			$insert = "INSERT INTO 
-			`newsletter` (`email`)
-			VALUES (?)";
+			`newsletter` (`email`, `active`)
+			VALUES (?, ?)";
 
 
 			if ($stmt = mysqli_prepare($conn, $insert)) {
 				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "s", $param_email);
+				mysqli_stmt_bind_param($stmt, "sss", $param_email, $param_active);
 
 				// Set parameters
 				$param_email = $email;
+				$param_active = $active;
 
 				// Attempt to execute the prepared statement
 				if (mysqli_stmt_execute($stmt)) {
@@ -356,6 +358,12 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                         <h5 class='text-dark'>Email</h5>
                         <div class='form-outline mb-4'>
                             <input required class='form-control me-1' placeholder='Email' name='insert-email' type='text'>
+                        </div>
+
+						<!-- Active input -->
+                        <h5 class='text-dark'>Active</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Active' name='insert-active' type='text'>
                         </div>
 
                         <div class='row mb-4'>

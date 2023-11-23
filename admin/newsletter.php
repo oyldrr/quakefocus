@@ -82,6 +82,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                                     <th></th>
                                     <th>#</th>
                                     <th>Email</th>
+                                    <th>Active</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                 </tr>
@@ -91,6 +92,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                                     <th></th>
                                     <th>#</th>
                                     <th>Email</th>
+                                    <th>Active</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                 </tr>
@@ -113,6 +115,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                                         </td>
                                         <td><?= $row['id'] ?></td>
                                         <td><?= $row['email'] ?></td>
+                                        <td><?= $row['active'] ?></td>
                                         <td><?= $row['created_at'] ?></td>
                                         <td><?= $row['updated_at'] ?></td>
                                     </tr>
