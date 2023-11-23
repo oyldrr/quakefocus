@@ -104,7 +104,71 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 				header('location: supporters.php?mysqliproblem');
 			}
 		} elseif ($_GET['table'] == "supply") {
+			$water = mysqli_real_escape_string($conn, $_POST['insert-water']);
+			$food = mysqli_real_escape_string($conn, $_POST['insert-food']);
+			$education = mysqli_real_escape_string($conn, $_POST['insert-education']);
+			$shelter = mysqli_real_escape_string($conn, $_POST['insert-shelter']);
+			$entered_by = mysqli_real_escape_string($conn, $_POST['insert-entered_by']);
+
+			$insert = "INSERT INTO 
+			`supply` (`water`, `food`, `education`, `shelter`, `entered_by`)
+			VALUES (?, ?, ?, ?, ?)";
+
+
+			if ($stmt = mysqli_prepare($conn, $insert)) {
+				// Bind variables to the prepared statement as parameters
+				mysqli_stmt_bind_param($stmt, "sssss", $param_water, $param_food, $param_education, $param_shelter, $param_entered_by);
+
+				// Set parameters
+				$param_water = $water;
+				$param_food = $food;
+				$param_education = $education;
+				$param_shelter = $shelter;
+				$param_entered_by = $entered_by;
+
+				// Attempt to execute the prepared statement
+				if (mysqli_stmt_execute($stmt)) {
+					// Redirect to login page
+					header('location: supply.php?insertion=successfull');
+					exit();
+				} else {
+					echo "Oops! Something went wrong. Please try again later.";
+				}
+
+				// Close statement
+				mysqli_stmt_close($stmt);
+			} else {
+				header('location: supply.php?mysqliproblem');
+			}
 		} elseif ($_GET['table'] == "newsletter") {
+			$email = mysqli_real_escape_string($conn, $_POST['insert-email']);
+
+			$insert = "INSERT INTO 
+			`newsletter` (`email`)
+			VALUES (?)";
+
+
+			if ($stmt = mysqli_prepare($conn, $insert)) {
+				// Bind variables to the prepared statement as parameters
+				mysqli_stmt_bind_param($stmt, "s", $param_email);
+
+				// Set parameters
+				$param_email = $email;
+
+				// Attempt to execute the prepared statement
+				if (mysqli_stmt_execute($stmt)) {
+					// Redirect to login page
+					header('location: newsletter.php?insertion=successfull');
+					exit();
+				} else {
+					echo "Oops! Something went wrong. Please try again later.";
+				}
+
+				// Close statement
+				mysqli_stmt_close($stmt);
+			} else {
+				header('location: newsletter.php?mysqliproblem');
+			}
 		}
 	}
 }
@@ -196,8 +260,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 									<!-- Submit button -->
 									<input type='submit' class='btn btn-primary mb-4 w-100' value='Insert the record'>
 								</div>
-							</div>
-					";
+							</div>";
 					} elseif ($_GET['table'] == "supporters") {
 
 						echo "
@@ -249,9 +312,61 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                         </div>
 						";
 					} elseif ($_GET['table'] == "supply") {
-						echo "";
+						echo "
+                        <!-- Water input -->
+                        <h5 class='text-dark'>Water</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Water' name='insert-water' type='text'>
+                        </div>
+
+                        <!-- Food input -->
+                        <h5 class='text-dark'>Food</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Food' name='insert-food' type='text'>
+                        </div>
+
+                        <!-- Education input -->
+                        <h5 class='text-dark'>Education</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Education' name='insert-education' type='text'>
+                        </div>
+
+                        <!-- Shelter input -->
+                        <h5 class='text-dark'>Shelter</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Shelter' name='insert-shelter' type='text'>
+                        </div>
+
+                        <!-- Entered By input -->
+                        <h5 class='text-dark'>Entered By</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Entered By' name='insert-entered_by' type='text'>
+                        </div>
+
+                        <div class='row mb-4'>
+                            <div class='col'>
+                                <!-- Submit button -->
+                                <input type='submit' class='btn btn-primary mb-4 w-100' value='Insert the record'>
+                            </div>
+                        </div>
+						";
 					} elseif ($_GET['table'] == "newsletter") {
-						echo "";
+						echo "
+                        <!-- Email input -->
+                        <h5 class='text-dark'>Email</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Email' name='insert-email' type='text'>
+                        </div>
+
+                        <div class='row mb-4'>
+                            <div class='col'>
+                                <!-- Submit button -->
+                                <input type='submit' class='btn btn-primary mb-4 w-100' value='Insert the record'>
+                            </div>
+                        </div>
+						";
+					} else {
+						include_once '404.html';
 					}
 
 					?>

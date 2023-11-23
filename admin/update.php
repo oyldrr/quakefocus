@@ -151,6 +151,35 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                 header('location: supply.php?mysqliproblem');
             }
         } elseif ($_GET['table'] == "newsletter") {
+            $email = mysqli_real_escape_string($conn, $_POST['update-email']);
+
+            $update = "UPDATE `newsletter` SET 
+            `email` = ?
+            WHERE id = ?";
+
+
+            if ($stmt = mysqli_prepare($conn, $update)) {
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "ss", $param_email, $param_id);
+
+                // Set parameters
+                $param_email = $email;
+                $param_id = $id;
+
+                // Attempt to execute the prepared statement
+                if (mysqli_stmt_execute($stmt)) {
+                    // Redirect to login page
+                    header('location: newsletter.php?update=successfull');
+                    exit();
+                } else {
+                    echo "Oops! Something went wrong. Please try again later.";
+                }
+
+                // Close statement
+                mysqli_stmt_close($stmt);
+            } else {
+                header('location: newsletter.php?mysqliproblem');
+            }
         }
     }
 }
@@ -348,7 +377,26 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
                             </div>
                         </div>";
                     } elseif ($_GET['table'] == "newsletter") {
-                        echo "";
+                        $stmt = $conn->prepare('SELECT * FROM newsletter WHERE id = ' . $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+
+                            echo "
+                        <!-- Email input -->
+                        <h5 class='text-dark'>Email</h5>
+                        <div class='form-outline mb-4'>
+                            <input required class='form-control me-1' placeholder='Email' name='update-email' type='text' value='" . $row['email'] . "'>
+                        </div>
+
+                        <div class='row mb-4'>
+                            <div class='col'>
+                                <!-- Submit button -->
+                                <input type='submit' class='btn btn-primary mb-4 w-100' value='Update the record'>
+                            </div>
+                        </div>";
+                    } else {
+                        include_once '404.html';
                     }
 
                     ?>
