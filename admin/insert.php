@@ -151,7 +151,7 @@ if (isset($_SESSION["adminLoggedin"]) !== true) {
 
 			if ($stmt = mysqli_prepare($conn, $insert)) {
 				// Bind variables to the prepared statement as parameters
-				mysqli_stmt_bind_param($stmt, "sss", $param_email, $param_active);
+				mysqli_stmt_bind_param($stmt, "ss", $param_email, $param_active);
 
 				// Set parameters
 				$param_email = $email;

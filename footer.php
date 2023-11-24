@@ -1,3 +1,43 @@
+<?php
+ob_start();
+require_once "config/connection.php";
+
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = mysqli_real_escape_string($conn, $_POST['input-email']);
+    $active = 1;
+
+    if ($email != " ") {
+        $insert = "INSERT INTO 
+			`newsletter` (`email`, `active`)
+			VALUES (?, ?)";
+        if ($stmt = mysqli_prepare($conn, $insert)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ss", $param_email, $param_active);
+
+            // Set parameters
+            $param_email = $email;
+            $param_active = $active;
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Redirect to login page
+                header('location: index.php?email-address-added-to-newsletter');
+                exit();
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        } else {
+            header('location: index.php?mysqliproblem');
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,33 +149,35 @@
                     <p class="text-links mb-4" data-aos="fade-right">You can get lots of information by subscribing to our newsletter.</p>
                     <div class="form-group" data-aos="fade-right" data-aos-delay="200">
                         <div class="input-group">
-                            <input required type="email" placeholder="Enter a mail addres..." aria-describedby="button-addon1" class="form-control border-0 shadow-0 bg-transparent">
-                            <div class="input-group-append">
-                                <button id="button-addon1" type="submit" class="btn btn-link">
-                                    <i class="fa fa-paper-plane"></i>
-                                </button>
-                            </div>
+                            <form class="d-flex w-100" action="" method="post">
+                                <input required name="input-email" type="email" placeholder="Enter a mail addres..." aria-describedby="button-addon1" class="form-control border-0 shadow-0 bg-transparent">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!------ End ------>
-
             </div>
-        </div>
-        <!---------- End ------------->
+            <!------ End ------>
 
-        <!-- Copyrights -->
-        <div class="copyright text-center mt-3 pb-3">
-            <p class="text-links">
-                ©
-                <!-- Getting Current Year -->
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>
-                Quake Focus All rights reserved.
-            </p>
         </div>
-        <!-- End -->
+    </div>
+    <!---------- End ------------->
+
+    <!-- Copyrights -->
+    <div class="copyright text-center mt-3 pb-3">
+        <p class="text-links">
+            ©
+            <!-- Getting Current Year -->
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            Quake Focus All rights reserved.
+        </p>
+    </div>
+    <!-- End -->
     </div>
 
     <script>
